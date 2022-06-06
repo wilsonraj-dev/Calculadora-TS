@@ -7,7 +7,7 @@ import CalcView from '../../components/CalcView';
 import { Background, ButtonContainer, Container } from './styles';
 
 export default function Home() {
-  const buttons = ['C', '√', '%', '/', '7', '8', '9', 'x', '4', '5', '6', '-', '1', '2', '3', '+', '0', 'DEL', '=']
+  const buttons = ['C', '√', '%', '/', '7', '8', '9', 'x', '4', '5', '6', '-', '1', '2', '3', '+', '0', 'DEL', 'X^', '=']
   const unicode = {
     '/': '\u00F7',
     '√': '\u221A'
@@ -43,13 +43,16 @@ export default function Home() {
       case '%':
           setCurrent((firstNumber / 100).toString())
           return
+      case 'X^':
+        setCurrent((Math.pow(firstNumber, lastNumber)).toString())
+        return
     }
 
   }
 
   function handleOperation(button: string) {
 
-    if (button === 'x' || button === '+' || button === '-' || button === '%') {
+    if (button === 'x' || button === '+' || button === '-' || button === '%' || button === 'X^') {
       setCurrent(current + " " + button + " ")
       return
     }
@@ -89,13 +92,7 @@ export default function Home() {
                 backgroundColor="orange"
                 onPress={() => handleOperation(button)}
               />
-              :
-              button === '0' ?
-                <Button
-                  title={button}
-                  width="110px"
-                  onPress={() => handleOperation(button)}
-                />
+              
                 :
                 button === 'DEL' ?
                   <Button
